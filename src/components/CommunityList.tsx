@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CommunityCard from './CommunityCard';
+import { Flex } from '@chakra-ui/react';
 
 interface Community {
   id: string;
   name: string;
-  imageUrl: string;
+  imgUrl: string;
   group: string;
 }
 
@@ -27,8 +28,11 @@ const CommunityList: React.FC = () => {
         const communitiesRes = await axios.get<Community[]>(
           '/api/communities.json'
         );
-        console.log(communitiesRes.data);
-        setCommunities(communitiesRes.data);
+
+        const sortedCommunities = communitiesRes.data.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+        setCommunities(sortedCommunities);
       } catch (err) {
         console.log('Error fetching communities: ', err);
       }
@@ -39,7 +43,6 @@ const CommunityList: React.FC = () => {
         const homesRes = await axios.get<Home[]>(
           '/api/homes.json'
         );
-        console.log(homesRes.data);
         setHomes(homesRes.data);
       } catch (err) {
         console.log('Error fetching homes: ', err);
@@ -51,11 +54,11 @@ const CommunityList: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <Flex flexWrap="wrap" justifyContent="center">
       {communities.map((community) => (
         <CommunityCard key={community.id} community={community} homes={homes} />
       ))}
-    </div>
+    </Flex>
   );
 };
 
