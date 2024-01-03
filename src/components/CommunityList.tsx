@@ -3,20 +3,35 @@ import axios from 'axios';
 
 const CommunityList: React.FC = () => {
   const [communities, setCommunities] = useState();
+  const [homes, setHomes] = useState();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCommunities = async () => {
       try {
-        const res = await axios.get(
+        const communitiesRes = await axios.get(
           '/api/communities.json'
         );
-        console.log(res.data);
-        setCommunities(res.data);
+        console.log(communitiesRes.data);
+        setCommunities(communitiesRes.data);
       } catch (err) {
-        console.log('Error:', err);
+        console.log('Error fetching communities: ', err);
       }
     };
-    fetchData();
+
+    const fetchHomes = async () => {
+      try {
+        const homesRes = await axios.get(
+          '/api/homes.json'
+        );
+        console.log(homesRes.data);
+        setHomes(homesRes.data);
+      } catch (err) {
+        console.log('Error fetching homes: ', err);
+      }
+    };
+
+    fetchCommunities();
+    fetchHomes();
   }, []);
 
   return (
