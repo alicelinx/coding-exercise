@@ -36,6 +36,10 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, homes }) => {
       flexDirection="column"
       alignItems="center"
       boxShadow="0 0 10px rgba(0, 0, 0, .15)"
+      _hover={{
+        boxShadow: "0 0 10px #e47b2d",
+        border: "#e47b2d"
+      }}
     >
       <Text
         width="100%"
