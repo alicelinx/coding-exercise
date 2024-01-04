@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CommunityCard from './CommunityCard';
-import { Flex, Skeleton } from '@chakra-ui/react';
+import { Alert, AlertIcon, Flex, Skeleton } from '@chakra-ui/react';
 
 interface Community {
   id: string;
@@ -22,6 +22,7 @@ const CommunityList: React.FC = () => {
   const [communities, setCommunities] = useState<Community[]>([]);
   const [homes, setHomes] = useState<Home[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -37,7 +38,7 @@ const CommunityList: React.FC = () => {
         setCommunities(sortedCommunities);
         setLoading(false);
       } catch (err) {
-        console.log('Error fetching communities: ', err);
+        setError(true);
       }
     };
 
@@ -50,7 +51,7 @@ const CommunityList: React.FC = () => {
         setHomes(homesRes.data);
         setLoading(false);
       } catch (err) {
-        console.log('Error fetching homes: ', err);
+        setError(true);
       }
     };
 
@@ -60,25 +61,35 @@ const CommunityList: React.FC = () => {
 
   return (
     <>
-      {loading ?
-        <Flex flexWrap="wrap" justifyContent="center">
-          {communities.map((community) => (
-            <Skeleton
-              key={community.id}
-              m={4}
-              width="300px"
-              height="280px"
-              borderWidth="1px"
-              borderRadius="10px"
-            />
-          ))}
-        </Flex>
-        :
-        <Flex flexWrap="wrap" justifyContent="center">
-          {communities.map((community) => (
-            <CommunityCard key={community.id} community={community} homes={homes} />
-          ))}
-        </Flex>}
+      {error ?
+        (
+          <Flex justifyContent="center">
+            <Alert status='error' width="40%">
+              <AlertIcon />
+              There is an error, please try again later
+            </Alert>
+          </Flex>
+        ) : loading ? (
+          <Flex flexWrap="wrap" justifyContent="center">
+            {communities.map((community) => (
+              <Skeleton
+                key={community.id}
+                m={4}
+                width="300px"
+                height="280px"
+                borderWidth="1px"
+                borderRadius="10px"
+              />
+            ))}
+          </Flex>
+        ) : (
+          <Flex flexWrap="wrap" justifyContent="center">
+            {communities.map((community) => (
+              <CommunityCard key={community.id} community={community} homes={homes} />
+            ))}
+          </Flex>
+        )
+      }
     </>
   );
 };
