@@ -69,7 +69,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, homes }) => {
       <Image
         src={community.imgUrl}
         alt={community.name}
-        fallbackSrc='https://icon-library.com/images/no-picture-available-icon/no-picture-available-icon-1.jpg'
+        fallbackSrc='https://placehold.co/266x167?text=Image+Coming+Soon'
         height="167px"
         mb={3}
         borderRadius="5px"
@@ -77,7 +77,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, homes }) => {
       {totalPrice === 0 ?
         <Text color="gray">Average Price Not Available</Text>
         :
-        <Text color="#099">Average Price: {formattedPrice}</Text>
+        <Text color="#099" fontWeight="500">Average Price: {formattedPrice}</Text>
       }
     </Box>);
 };
