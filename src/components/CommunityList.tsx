@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import CommunityCard from './CommunityCard';
 import { Alert, AlertIcon, Flex, Skeleton } from '@chakra-ui/react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import CommunityCard from './CommunityCard';
 
 interface Community {
   id: string;
