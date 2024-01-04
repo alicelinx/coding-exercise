@@ -1,14 +1,18 @@
-import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import CommunityList from './components/CommunityList';
 
 function App() {
   return (
     <>
-      <Flex
-        color="red"
-        justifyContent="center"
-      >Hello World</Flex>
+      <Text
+        textAlign="center"
+        fontSize="36px"
+        color="#14625d"
+        fontWeight="800"
+        py={6}
+      >
+        Calgary Communities
+      </Text>
       <CommunityList />
     </>
   );
